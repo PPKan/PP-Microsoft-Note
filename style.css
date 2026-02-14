@@ -264,9 +264,22 @@ body {
     cursor: pointer;
     font-family: var(--font-body);
     font-size: 0.9rem;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    line-height: 1.5;
+}
+
+.btn-secondary i {
+    font-size: 1rem;
+    line-height: 1;
+    display: inline-block;
+}
+
+.btn-secondary span {
+    line-height: 1;
+    display: inline-block;
 }
 
 .btn-secondary:hover {
@@ -427,7 +440,7 @@ body {
     border-top: none;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 1.5rem;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
