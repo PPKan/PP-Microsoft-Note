@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章 | PP微軟筆記</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📒</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <header class="ms-header">
+        <a href="index.html" class="brand">
+            <span style="font-size: 1.5rem;">📒</span> <span>PP微軟筆記</span>
+        </a>
+        <div class="nav-right">
+            <a href="about.html" class="nav-link">ABOUT</a>
+
+            <!-- Search Widget -->
+            <div class="search-container" id="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search posts...">
+                <a href="#" class="nav-link" id="search-toggle">SEARCH</a>
+            </div>
+
+            <button id="theme-toggle" class="theme-toggle">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container layout-grid">
+        <!-- Main Content Column -->
+        <main class="main-content">
+            <header style="margin-bottom: 2rem;">
+                <h1 id="post-title" class="page-title"
+                    style="margin-bottom: 0.5rem; border-bottom: none; display: block;"></h1>
+                <div id="post-meta-data" style="color: var(--text-secondary); font-size: 0.9rem;"></div>
+            </header>
+
+            <div class="post-controls">
+                <button id="toggle-all-btn" class="btn-secondary">
+                    <i class="fa-solid fa-expand"></i> <span>全部展開</span>
+                </button>
+            </div>
+
+            <article id="article-body" class="article-body">
+                <!-- Accordion items will be injected here -->
+                <p>正在載入內容...</p>
+            </article>
+        </main>
+
+        <!-- Sidebar Column -->
+        <aside class="sidebar">
+            <div class="sidebar-widget" id="toc-widget" style="display:none;">
+                <h3 class="widget-title">文章目錄 (TOC)</h3>
+                <ul id="toc-list" class="toc-list"></ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">所有文章</h3>
+                <ul id="all-posts-list" class="posts-nav-list">
+                    <li>載入中...</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="Fullscreen Image">
+        <div class="lightbox-controls">
+            <button id="lightbox-zoom-toggle" class="lightbox-btn">
+                <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom
+            </button>
+        </div>
+    </div>
+
+    <footer class="ms-footer">
+        <p>&copy; 2024 PP微軟筆記. All rights reserved.</p>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-powershell.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

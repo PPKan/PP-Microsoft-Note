@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP微軟筆記 | 教學部落格</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📒</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="ms-header">
+        <a href="index.html" class="brand">
+            <span style="font-size: 1.5rem;">📒</span> <span>PP微軟筆記</span>
+        </a>
+        <div class="nav-right">
+            <a href="about.html" class="nav-link">ABOUT</a>
+
+            <div class="search-container" id="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search posts...">
+                <a href="#" class="nav-link" id="search-toggle">SEARCH</a>
+            </div>
+
+            <button id="theme-toggle" class="theme-toggle" title="切換主題">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container layout-grid">
+        <main class="main-content">
+            <h1 class="page-title">最新文章</h1>
+
+            <div id="posts-list" class="posts-list">
+                <!-- Posts loaded via JS -->
+                <p>正在載入文章...</p>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">歡迎來到 PP微軟筆記</h3>
+                <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    這是您的一站式 Microsoft 技術學習資源。
+                </p>
+                <a href="about.html" style="font-size: 0.9rem; color: var(--ms-blue); text-decoration: none;">了解更多
+                    &rarr;</a>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">所有文章快速索引</h3>
+                <ul id="all-posts-list" class="posts-nav-list">
+                    <li>載入中...</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="ms-footer">
+        <p>&copy; 2024 PP微軟筆記. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

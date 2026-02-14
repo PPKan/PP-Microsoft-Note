@@ -1,0 +1,669 @@
+:root {
+    /* Microsoft-ish Design Tokens */
+    --ms-blue: #0078D4;
+    --ms-blue-dark: #005a9e;
+    --ms-blue-light: #eff6fc;
+
+    /* Light Mode (Default) */
+    --bg-page: #f8f8f8;
+    --bg-card: #ffffff;
+    --text-primary: #242424;
+    --text-secondary: #605e5c;
+    --border-color: #edebe9;
+    --shadow-card: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+    --hover-bg: #f3f2f1;
+
+    --font-heading: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    --font-body: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Overrides */
+    --bg-page: #202020;
+    --bg-card: #2b2b2b;
+    --text-primary: #ffffff;
+    --text-secondary: #d0d0d0;
+    --border-color: #484848;
+    --shadow-card: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --hover-bg: #323130;
+    --ms-blue-light: #323130;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    /* Increased back for better readability */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    /* Reverted to standard size */
+}
+
+/* Header */
+.ms-header {
+    background: var(--bg-card);
+    height: 58px;
+    /* Slightly taller */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+}
+
+.brand i {
+    color: var(--ms-blue);
+    font-size: 1.3rem;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    /* Bolder for caps */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--ms-blue);
+}
+
+/* Search Container */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 0;
+    opacity: 0;
+    border: none;
+    background: var(--bg-page);
+    padding: 0.4rem 0;
+    /* No horizontal padding initially */
+    outline: none;
+    color: var(--text-primary);
+    transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-container.active .search-input {
+    width: 200px;
+    opacity: 1;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border-color);
+    margin-right: 0.5rem;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+/* Page Layout - Grid for Sidebar */
+.container {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+    flex: 1;
+}
+
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    /* Slightly wider sidebar */
+    gap: 3rem;
+    /* Increased gap */
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 2;
+    }
+}
+
+/* Content Area */
+.main-content {
+    min-width: 0;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: sticky;
+    top: 85px;
+    background: transparent;
+}
+
+.sidebar-widget {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-card);
+}
+
+.widget-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+    text-transform: uppercase;
+}
+
+.toc-list,
+.posts-nav-list {
+    list-style: none;
+}
+
+.toc-list li,
+.posts-nav-list li {
+    margin-bottom: 0.6rem;
+}
+
+.toc-link,
+.posts-nav-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    /* Larger sidebar links */
+    display: block;
+    padding: 3px 0;
+    transition: color 0.2s;
+}
+
+.toc-link:hover,
+.posts-nav-link:hover {
+    color: var(--ms-blue);
+    padding-left: 4px;
+}
+
+.toc-link.active {
+    color: var(--ms-blue);
+    font-weight: 600;
+    border-left: 3px solid var(--ms-blue);
+    padding-left: 10px;
+}
+
+/* Post Controls */
+.post-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.btn-secondary {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: var(--hover-bg);
+    color: var(--ms-blue);
+    border-color: var(--ms-blue);
+}
+
+/* List View for Posts (Index) */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post-item {
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    padding: 2rem;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 120, 212, 0.1);
+}
+
+.post-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--ms-blue);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.post-item:hover::before {
+    opacity: 1;
+}
+
+.post-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.post-title h2 {
+    font-size: 1.5rem;
+    /* Larger */
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.post-item:hover .post-title h2 {
+    color: var(--ms-blue);
+}
+
+.post-excerpt {
+    font-size: 1.05rem;
+    /* Larger */
+    color: var(--text-secondary);
+    line-height: 1.7;
+    /* Increased line-height */
+}
+
+/* Accordion Logic */
+.accordion-header {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    outline: none;
+    font-size: 1.15rem;
+    /* Larger */
+    font-weight: 600;
+    transition: 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+    /* Increased spacing */
+    user-select: none;
+    letter-spacing: 0.01em;
+}
+
+.accordion-header:hover {
+    background-color: var(--hover-bg);
+}
+
+.accordion-header.active {
+    background-color: var(--bg-card);
+    /* border-left: 4px solid var(--ms-blue);  <-- Removed */
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+    position: relative;
+    /* For pseudo-element */
+    overflow: hidden;
+    /* Clip to container if needed, or NOT if we want it to float */
+}
+
+/* New Blue Strip using Pseudo-element */
+.accordion-header.active::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    /* Gap from the left edge */
+    top: 10px;
+    /* Spacing from top */
+    bottom: 10px;
+    /* Spacing from bottom */
+    width: 4px;
+    /* Thinner strip */
+    background-color: var(--ms-blue);
+    border-radius: 0;
+    /* No radius */
+}
+
+.accordion-header::after {
+    content: '\f107';
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--text-secondary);
+    transition: transform 0.3s;
+}
+
+.accordion-header.active::after {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 0 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    margin-bottom: 1.5rem;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.accordion-content.open {
+    padding: 1.5rem;
+    /* More padding */
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    /* More space at bottom */
+    max-height: none;
+}
+
+/* Footer */
+.ms-footer {
+    text-align: center;
+    padding: 2.5rem 0;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* Markdown Content Styling */
+.article-body h3 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.article-body p,
+.article-body li {
+    font-size: 1.05rem;
+    /* Reverted to 1.1rem */
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    /* More spacing */
+    word-break: break-word;
+    line-height: 1.75;
+    /* Increased spacing */
+}
+
+.article-body ul,
+.article-body ol {
+    padding-left: 1.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.article-body li {
+    margin-bottom: 0.5rem;
+}
+
+.article-body code {
+    background: var(--hover-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.95em;
+    color: #ce3ead;
+    word-break: break-all;
+}
+
+.article-body pre {
+    background: #1e1e1e !important;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.article-body img,
+.article-body iframe {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    display: block;
+    margin: 1.5rem 0;
+    /* More spacing around media */
+}
+
+.video-wrapper {
+    position: relative;
+    width: 85%;
+    /* Leave space on sides */
+    max-width: 800px;
+    /* Prevent being too huge on large screens */
+    margin: 2.5rem auto;
+    /* Center and add vertical space */
+    aspect-ratio: 16 / 9;
+    /* Modern aspect ratio handling */
+    border-radius: 12px;
+    /* Smoother corners */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Nice shadow for depth */
+    background: #000;
+    /* Fallback */
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+
+/* Image Styling (Matching Video) */
+.article-body img {
+    display: block;
+    width: 85%;
+    max-width: 800px;
+    height: auto;
+    margin: 2.5rem auto;
+    /* Centered with vertical spacing */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: zoom-in;
+    /* Indicate clickable */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-body img:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Lightbox Overlay */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+    cursor: zoom-in;
+}
+
+.lightbox-content.zoomed {
+    transform: none;
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
+    cursor: zoom-out;
+}
+
+.lightbox.zoomed-mode {
+    display: block;
+    /* Switch from flex to block for scrolling */
+    overflow: auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.lightbox.zoomed-mode .lightbox-content {
+    cursor: zoom-out;
+    margin: auto;
+    max-width: none;
+    max-height: none;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 2001;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+.lightbox-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 2001;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(4px);
+}
+
+.lightbox-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+}

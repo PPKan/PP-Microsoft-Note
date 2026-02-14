@@ -1,0 +1,11 @@
+[
+    {
+        "id": "entra-id-basics",
+        "title": "Microsoft Entra ID 基礎入門：身分識別的新時代",
+        "date": "2024-02-14",
+        "author": "Peter",
+        "tags": "",
+        "excerpt": "深入了解 Microsoft Entra ID (前身為 Azure AD) 的核心概念，以及它如何重塑現代企業的安全防護邊界。",
+        "filename": "entra-id-basics.md"
+    }
+]
