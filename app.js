@@ -321,14 +321,23 @@ function convertToAccordion(html) {
 
     let currentSectionTitle = null;
     let currentSectionId = null;
+    let currentSectionSubsections = [];
     let hasStartedAccordion = false;
     let introBuffer = '';
 
     children.forEach((child, index) => {
         if (child.tagName === 'H2') {
+            // Close previous section if exists
             if (currentSectionTitle) {
                 newHtml += `</div>`;
+                // Push previous section data
+                sections.push({
+                    title: currentSectionTitle,
+                    id: currentSectionId,
+                    subsections: currentSectionSubsections
+                });
             }
+
             if (!hasStartedAccordion && introBuffer) {
                 newHtml += `<div class="intro-section">${introBuffer}</div>`;
                 introBuffer = '';
@@ -337,10 +346,20 @@ function convertToAccordion(html) {
             hasStartedAccordion = true;
             currentSectionTitle = child.innerText;
             currentSectionId = `section-${index}`;
-            sections.push({ title: currentSectionTitle, id: currentSectionId });
+            currentSectionSubsections = []; // Reset subsections
 
             newHtml += `<button class="accordion-header active" data-target="${currentSectionId}">${currentSectionTitle}</button>`;
             newHtml += `<div id="${currentSectionId}" class="accordion-content open">`;
+        } else if (child.tagName === 'H3' && hasStartedAccordion) {
+            // It's an H3 inside a section
+            const h3Id = `h3-${index}`;
+            // Add ID to the H3 element for scrolling
+            child.id = h3Id;
+            currentSectionSubsections.push({
+                title: child.innerText,
+                id: h3Id
+            });
+            newHtml += child.outerHTML;
         } else {
             if (hasStartedAccordion) {
                 newHtml += child.outerHTML;
@@ -350,8 +369,14 @@ function convertToAccordion(html) {
         }
     });
 
+    // Close the last section
     if (currentSectionTitle) {
         newHtml += `</div>`;
+        sections.push({
+            title: currentSectionTitle,
+            id: currentSectionId,
+            subsections: currentSectionSubsections
+        });
     }
 
     if (!hasStartedAccordion) {
@@ -369,9 +394,22 @@ function generateTOC(sections) {
 
     widget.style.display = 'block';
 
-    list.innerHTML = sections.map(sec => `
-        <li><a href="#" onclick="scrollToAccordion('${sec.id}'); return false;" class="toc-link">${sec.title}</a></li>
-    `).join('');
+    list.innerHTML = sections.map(sec => {
+        let subHtml = '';
+        if (sec.subsections && sec.subsections.length > 0) {
+            subHtml = `<ul class="toc-sublist">` +
+                sec.subsections.map(sub => `
+                    <li><a href="#" onclick="scrollToHeading('${sec.id}', '${sub.id}'); return false;" class="toc-sublink">${sub.title}</a></li>
+                `).join('') +
+                `</ul>`;
+        }
+        return `
+            <li>
+                <a href="#" onclick="scrollToAccordion('${sec.id}'); return false;" class="toc-link">${sec.title}</a>
+                ${subHtml}
+            </li>
+        `;
+    }).join('');
 }
 
 function scrollToAccordion(id) {
@@ -381,6 +419,24 @@ function scrollToAccordion(id) {
             el.previousElementSibling.click();
         }
         el.previousElementSibling.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function scrollToHeading(accordionId, headingId) {
+    const accordionContent = document.getElementById(accordionId);
+    if (accordionContent) {
+        // Ensure accordion is open
+        if (!accordionContent.classList.contains('open')) {
+            accordionContent.previousElementSibling.click(); // Click the header to open
+        }
+
+        // Wait a tiny bit for the opening animation to start/layout to update
+        setTimeout(() => {
+            const headingEl = document.getElementById(headingId);
+            if (headingEl) {
+                headingEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 300); // 300ms matches the transition time in CSS
     }
 }
 

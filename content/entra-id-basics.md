@@ -1,7 +1,7 @@
 ---
 id: entra-id-basics
 title: Microsoft Entra ID 基礎入門：身分識別的新時代
-date: 2024-02-14
+date: 2026-02-14
 author: Peter
 tags:
   - Entra ID
